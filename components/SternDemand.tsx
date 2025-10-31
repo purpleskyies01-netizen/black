@@ -1,36 +1,70 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // components/SternDemand.tsx
 import { Button } from "@/components/ui/button";
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function SternDemand({ victim }: { victim: any }) {
+  const contactLines = victim.demand.contact.split("\n");
+
   return (
-    <Alert className="bg-red-950 border-4 border-red-800 text-white shadow-2xl">
-      <AlertTitle className="text-3xl font-black text-red-400 uppercase tracking-widest">
-        FINAL ULTIMATUM
-      </AlertTitle>
-      <AlertDescription className="mt-4 space-y-4 text-lg">
-        <p className="font-bold text-yellow-300">{victim.demand.task}</p>
-        <div className="bg-black p-4 rounded-lg font-mono text-sm">
-          <pre className="whitespace-pre-wrap text-red-300">
-            {victim.demand.contact}
-          </pre>
-        </div>
-        <div className="text-center">
-          <Button className="bg-red-700 hover:bg-red-600 text-white font-black text-lg px-8 py-6">
-            CONFIRM COMPLIANCE (UPLOAD PROOF)
-          </Button>
-        </div>
-        <p className="text-red-400 font-black uppercase text-center mt-4">
-          NON-COMPLIANCE = NUDES SENT TO:
-          <br />
-          • ALL FRIENDS ABOVE
-          <br />
-          • PARENTS (ROBERT & LINDA MILLER)
-          <br />• WEST VIRGINIA FACEBOOK GROUPS, SNAPCHAT, INSTAGRAM, LOCAL
-          FORUMS
+    <div className="bg-red-950 border-4 border-red-800 rounded-xl shadow-2xl overflow-hidden">
+      {/* Header – Red Alert Bar */}
+      <div className="bg-red-900 px-4 py-3 flex items-center justify-center gap-2">
+        <AlertCircle className="w-6 h-6 text-white animate-pulse" />
+        <h3 className="text-xl font-black text-white uppercase tracking-widest">
+          FINAL ULTIMATUM
+        </h3>
+        <AlertCircle className="w-6 h-6 text-white animate-pulse" />
+      </div>
+
+      <div className="p-4 sm:p-6 space-y-5 text-white">
+        {/* Task – Bold, auto-wrap */}
+        <p className="text-sm sm:text-base font-bold text-yellow-300 leading-snug text-center">
+          {victim.demand.task}
         </p>
-      </AlertDescription>
-    </Alert>
+
+        {/* Contact Info – Clean Card */}
+        <div className="bg-black/50 backdrop-blur-sm border border-red-700 rounded-lg p-4">
+          <p className="text-xs font-semibold text-red-400 uppercase mb-2">
+            Compliance Target
+          </p>
+          <div className="space-y-1 text-xs sm:text-sm font-mono text-red-300">
+            {contactLines.map((line: string, i: number) => (
+              <p key={i} className="truncate">
+                {line}
+              </p>
+            ))}
+          </div>
+        </div>
+
+        {/* Action Button – Full Width on Mobile */}
+        <Button className="w-full bg-red-700 hover:bg-red-600 text-white font-black text-xs py-6 sm:py-7 tracking-wider transition-all">
+          CONFIRM COMPLIANCE (UPLOAD PROOF)
+        </Button>
+
+        {/* Consequences – Icon List */}
+        <div className="bg-red-900/50 border border-red-700 rounded-lg p-4">
+          <p className="text-xs font-black text-red-400 uppercase text-center mb-3">
+            NON-COMPLIANCE = TOTAL EXPOSURE
+          </p>
+          <ul className="space-y-2 text-xs sm:text-sm text-red-300">
+            <li className="flex items-center gap-2">
+              <span className="text-red-500">→</span>
+              ALL FRIENDS LISTED ABOVE
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="text-red-500">→</span>
+              PARENTS (ROBERT & LINDA MILLER)
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="text-red-500">→</span>
+              <span className="break-words">
+                WEST VIRGINIA: Facebook, Snapchat, Instagram, Local Forums
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   );
 }

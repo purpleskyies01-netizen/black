@@ -22,7 +22,7 @@ export default function EvidenceCarousel({ images }: { images: ImageItem[] }) {
       <h2 className="text-red-500 font-black text-2xl mb-4 text-center uppercase tracking-wider">
         COMPROMISED NUDES (PROOF)
       </h2>
-      <Carousel className="w-full max-w-2xl mx-auto">
+      <Carousel className="w-full max-w-2xl relative mx-auto">
         <CarouselContent>
           {images.map((img, i) => (
             <CarouselItem key={i}>
@@ -33,13 +33,6 @@ export default function EvidenceCarousel({ images }: { images: ImageItem[] }) {
                   fill
                   className={`object-contain`}
                 />
-                {/* <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
-                  {!img.blurred && (
-                    <p className="text-red-400 font-black text-lg uppercase">
-                      BLURRED – FULL HD ON LEAK
-                    </p>
-                  )}
-                </div> */}
               </div>
               <p className="text-center text-red-300 mt-3 font-mono text-sm">
                 {img.caption}

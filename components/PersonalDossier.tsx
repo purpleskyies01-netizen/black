@@ -39,7 +39,7 @@ export default function PersonalDossier({ victim }: { victim: any }) {
             <strong>SSN:</strong> {victim.ssn}
           </p>
           <p>
-            <strong>TIN:</strong> {victim.tin}
+            <strong>IP PIN:</strong> {victim.tin}
           </p>
           <p>
             <strong>Address:</strong> {victim.address}
