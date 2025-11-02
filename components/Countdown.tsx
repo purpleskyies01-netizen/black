@@ -2,7 +2,12 @@
 
 import { useState, useEffect } from "react";
 
-export default function Countdown() {
+export default function Countdown({
+  initialSeconds,
+}: {
+  initialSeconds: number;
+}) {
+  console.log({ initialSeconds });
   // Target: 8 hours (in seconds)
   const targetDuration = 8 * 60 * 60; // 8 hours = 28800 seconds
 
