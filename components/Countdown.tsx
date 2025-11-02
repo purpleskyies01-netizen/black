@@ -1,25 +1,38 @@
-// components/Countdown.tsx
 "use client";
 
 import { useState, useEffect } from "react";
 
-export default function Countdown({
-  initialSeconds,
-}: {
-  initialSeconds: number;
-}) {
-  const [seconds, setSeconds] = useState(initialSeconds);
+export default function Countdown() {
+  // Target: 8 hours (in seconds)
+  const targetDuration = 8 * 60 * 60; // 8 hours = 28800 seconds
+
+  const [remaining, setRemaining] = useState<number>(targetDuration);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setSeconds((s) => (s > 0 ? s - 1 : 0));
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+    // Save a "start time" in localStorage (so it's persistent)
+    const savedStart = localStorage.getItem("countdownStartTime");
+    const startTime = savedStart ? parseInt(savedStart) : Date.now();
 
-  const hrs = Math.floor(seconds / 3600);
-  const mins = Math.floor((seconds % 3600) / 60);
-  const secs = seconds % 60;
+    if (!savedStart) {
+      localStorage.setItem("countdownStartTime", startTime.toString());
+    }
+
+    const updateRemaining = () => {
+      const elapsed = Math.floor((Date.now() - startTime) / 1000);
+      const timeLeft = targetDuration - elapsed;
+      setRemaining(timeLeft > 0 ? timeLeft : 0);
+    };
+
+    // Update every second
+    const interval = setInterval(updateRemaining, 1000);
+    updateRemaining();
+
+    return () => clearInterval(interval);
+  }, [targetDuration]);
+
+  const hrs = Math.floor(remaining / 3600);
+  const mins = Math.floor((remaining % 3600) / 60);
+  const secs = remaining % 60;
 
   return (
     <div className="bg-red-950 border-4 border-red-800 rounded-xl p-5 text-center shadow-2xl">
